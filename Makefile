@@ -3,8 +3,7 @@
 all: updateVim
 
 updateVim:
-	mv ~/.vimrc ~/.vimrc.bak
-	cp ~/.quaren/.vimrc ~/.vimrc
-	mv -r ~/.vim ~/.vim.bak
-	cp ~/.quaren/.vim ~/.vim
-
+	mv $${HOME}/.vimrc $${HOME}/.vimrc.bak
+	cp $${HOME}/.quaren/.vimrc $${HOME}/.vimrc
+	mv -r $${HOME}/.vim $${HOME}/.vim.bak
+	cp $${HOME}/.quaren/.vim $${HOME}/.vim
