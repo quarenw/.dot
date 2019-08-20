@@ -37,8 +37,8 @@ inoremap jf <esc>
 vnoremap jf <esc>
 
 " Remap to get into command mode without using shift
-nnoremap ; :
-vnoremap ; :
+" nnoremap ; :
+" vnoremap ; :
 
 " Visual line nav, not real line nav
 " If you wrap lines, vim by default won't let you move down one line to the
