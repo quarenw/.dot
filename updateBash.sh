@@ -13,3 +13,7 @@ else
   echo bash_it installed updated
 fi
 
+[ -f ${HOME}/.bashrc ] && grep "tmux" ${HOME}/.bashrc || echo $'\nif [ -z "$TMUX" ]; then\n    tmux attach -t local || tmux new -s local\nfi\n' >> ${HOME}/.bashrc
+
+[ -f ${HOME}/.bash_profile ] && grep "tmux" ${HOME}/.bash_profile || echo $'\nif [ -z "$TMUX" ]; then\n    tmux attach -t local || tmux new -s local\nfi\n' >> ${HOME}/.bash_profile
+
