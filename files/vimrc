@@ -54,8 +54,8 @@ set hlsearch " highlight matches
 set gdefault " use the `g` flag by default.
 
 " Remap to get out of insert and visual mode without esc
-inoremap jf <esc>
-vnoremap jf <esc>
+inoremap fj <esc>
+vnoremap fj <esc>
 
 " Remap to get into command mode without using shift
 " nnoremap ; :
