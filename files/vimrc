@@ -5,10 +5,16 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+set nocompatible
+
 call plug#begin()
 Plug 'preservim/nerdcommenter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'bfrg/vim-cpp-modern'
+Plug 'sheerun/vim-polyglot'
+Plug 'luochen1990/rainbow'
 call plug#end()
 
 
@@ -26,6 +32,12 @@ set showmode
 
 " Backspace behavior delete in normal mode as expected
 nnoremap <BS> "_X
+
+" Set 256 Colors and just hope for the best, who knows if it makes a
+" difference
+set t_Co=256
+" Set rainbow brackets
+let g:rainbow_active = 1
 
 set tabstop=2
 set shiftwidth=2
@@ -70,7 +82,9 @@ noremap k gk
 " allow the cursor to go anywhere in visual block mode
 set virtualedit+=block
 
-colorscheme monokai
+" set the color background to dark for the modded gruv
+set background=dark
+colorscheme gruvbox
 
 " Use sane regex's when searching
 nnoremap / /\v
@@ -81,6 +95,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" remap to shift-tab back in insert mode
+inoremap <S-Tab> <C-d>
 
 " create new vsplit, and switch to it.
 noremap <leader>v <C-w>v
