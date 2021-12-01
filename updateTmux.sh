@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
- [ -f ${HOME}/.tmux.conf ] && mv ${HOME}/.tmux.conf ${HOME}/.tmux.conf.bak
- cp ${HOME}/.quaren/files/tmux.conf ${HOME}/.tmux.conf
- cp -r ${HOME}/.quaren/files/tmux/ ${HOME}/.tmux/
-
-
+git clone --depth=1 https://github.com/gpakosz/.tmux.git ${HOME}/.tmux
+ln -s -f ${HOME}/.tmux/.tmux.conf ${HOME}/.tmux.conf
+cp ${HOME}/.dot/files/tmux.conf.local ${HOME}/.tmux.conf.local
