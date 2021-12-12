@@ -347,7 +347,13 @@ set -g history-limit 10000
 # move status line to top
 #set -g status-position top
 
-set -g status-interval 30     # redraw status line every 10 seconds
+# redraw status line every 30 seconds, don't need constant update, reduce flicker
+set -g status-interval 30
+
+# from https://superuser.com/questions/864364/tmux-printing-u0x001b-and-112-randomly
+# Added in case tmux prints % chars on restore
+set-option -g terminal-overrides ',xterm*:Cr=\E]12;gray\007'
+
 
 # -- tpm -----------------------------------------------------------------------
 
