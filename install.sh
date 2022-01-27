@@ -104,6 +104,7 @@ print "Install all the casks"
   brew install --cask google-cloud-sdk
 
   brew install --cask slack
+  brew install --cask vlc
 fi
 
 print "Setup complete, congratulations!"
