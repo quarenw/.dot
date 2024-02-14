@@ -1,51 +1,51 @@
-" Plug default startup code
+"Plug default startup code
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugin calls
+"Plugin calls
 call plug#begin()
-" Universal Plugins
+"Universal Plugins
 Plug 'itchyny/lightline.vim'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 
-" Vim only plugins
+"Vim only plugins
 if !has('nvim')
   Plug 'preservim/nerdtree'
 endif
 call plug#end()
 
 
-" Setting colors for proper color rendering
+"Setting colors for proper color rendering
 set termguicolors
-" Setting background dark for color theme
+"Setting background dark for color theme
 set background=dark
 
-" Faster update time
+"Faster update time
 set updatetime=100
 
 
 filetype plugin indent on " Filetype auto-detection
 syntax on " Syntax highlighting
 
-" Lightline installed so no show of INSERT in status line and status 2 for always showing status set noshowmode
+"Lightline installed so no show of INSERT in status line and status 2 for always showing status set noshowmode
 set noshowmode
 set laststatus=2
 
-" Color theme settings
+"Color theme settings
 let g:lightline = {'colorscheme': 'catppuccin_macchiato'}
 colorscheme catppuccin_macchiato
 
-" leader is a key that allows you to have your own "namespace" of keybindings.
-" You'll see it a lot below as <leader>
+"leader is a key that allows you to have your own "namespace" of keybindings.
+"You'll see it a lot below as <leader>
 let mapleader = ","
 
-" Backspace behavior delete in normal mode as expected
+"Backspace behavior delete in normal mode as expected
 nnoremap <BS> "_X
 
 set tabstop=2 " tab equal 2 whitespace chars
@@ -57,16 +57,16 @@ set shiftround " tab / shifting moves to closest tabstop.
 set autoindent " Match indents on new lines.
 set smartindent " Intellegently dedent / indent new lines based on rules.
 
-" We have VCS -- we don't need this stuff.
+"We have VCS -- we don't need this stuff.
 set nobackup " We have vcs, we don't need backups.
 set nowritebackup " We have vcs, we don't need backups.
 set noswapfile " They're just annoying. Who likes them?
 
-" don't nag me when hiding buffers
+"don't nag me when hiding buffers
 set hidden " allow me to have buffers with unsaved changes.
 set autoread " when a file has changed on disk, just load it. Don't ask.
 
-" Make search more sane
+"Make search more sane
 set ignorecase " case insensitive search
 set smartcase " If there are uppercase letters, become case-sensitive.
 set incsearch " live incremental searching
@@ -75,46 +75,46 @@ set hlsearch " highlight matches
 set gdefault " use the `g` flag by default.
 
 
-" Remap to get out of insert and visual mode without esc
+"Remap to get out of insert and visual mode without esc
 inoremap fj <esc>
 vnoremap fj <esc>
 
-" Remap to get into command mode without using shift
-" nnoremap ; :
-" vnoremap ; :
+"Remap to get into command mode without using shift
+"nnoremap ; :
+"vnoremap ; :
 
-" Visual line nav, not real line nav
-" If you wrap lines, vim by default won't let you move down one line to the
-" wrapped portion. This fixes that.
+"Visual line nav, not real line nav
+"If you wrap lines, vim by default won't let you move down one line to the
+"wrapped portion. This fixes that.
 noremap j gj
 noremap k gk
 
-" allow the cursor to go anywhere in visual block mode
+"allow the cursor to go anywhere in visual block mode
 set virtualedit+=block
 
-" Use sane regex's when searching
+"Use sane regex's when searching
 nnoremap / /\v
 vnoremap / /\v
 
-" bindings for easy split nav
+"bindings for easy split nav
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" remap to shift-tab back in insert mode
+"remap to shift-tab back in insert mode
 inoremap <S-Tab> <C-d>
 
-" create new vsplit, and switch to it.
+"create new vsplit, and switch to it.
 noremap <leader>v <C-w>v
 
-" Clear match highlighting
+"Clear match highlighting
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
-" Set leader + b to list buffers
+"Set leader + b to list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
 
-" Autofocus hybrid line number mode
+"Autofocus hybrid line number mode
 :set number relativenumber
 
 :augroup numbertoggle
@@ -124,15 +124,17 @@ nnoremap <Leader>b :ls<CR>:b<Space>
 :augroup END
 :autocmd InsertEnter,InsertLeave * set cul!
 
-" Change copy and paste default to the system clipboard + register
+"Change copy and paste default to the system clipboard + register
 vnoremap y "+y
 noremap p "+p
 
 """ VIM ONLY CONFIG
 if !has('nvim')
-  " Needed to force True color when loaded in tmux
-  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  " if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    " Needed to force True color when loaded in tmux
+    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  " endif
 
   " add ctrl-n to toggle NERDTree
   map <C-n> :NERDTreeToggle<CR>
