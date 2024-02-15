@@ -24,14 +24,14 @@ call plug#end()
 "Setting colors for proper color rendering
 set termguicolors
 "Setting background dark for color theme
-set background=dark
+"set background=dark "disabled as it is in the theme
 
 "Faster update time
 set updatetime=100
 
 
 filetype plugin indent on " Filetype auto-detection
-syntax on " Syntax highlighting
+"syntax on " Syntax highlighting disabled as it is in the theme
 
 "Lightline installed so no show of INSERT in status line and status 2 for always showing status set noshowmode
 set noshowmode
@@ -138,6 +138,12 @@ if !has('nvim')
 
   " add ctrl-n to toggle NERDTree
   map <C-n> :NERDTreeToggle<CR>
+
+  " enable line numbers
+  let NERDTreeshowLineNumbers=1
+  " make sure relative line numbers are used
+  autocmd FileType nerdtree setlocal relativenumber
+
   " close nerdtree if it is the last buffer ie close nerdtree when closing vim
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif

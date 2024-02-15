@@ -1,4 +1,7 @@
 require("nvim-tree").setup({
+  view = {
+    relativenumber = true
+  },
   actions = {
     open_file = {
       -- Option to autoclose when opening new files
