@@ -138,6 +138,8 @@ if !has('nvim')
 
   " add ctrl-n to toggle NERDTree
   map <C-n> :NERDTreeToggle<CR>
+  " close nerdtree if it is the last buffer ie close nerdtree when closing vim
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif
 
 """ NEOVIM Config
