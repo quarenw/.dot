@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-. ./utils.sh
+. ${HOME}/.dot/scripts/utils.sh
 
 msg "Checking for github and git cli, install if missing"
 
@@ -18,6 +18,4 @@ then
 else
 	msg "gh not installed, sdge"
 fi
-
-
 

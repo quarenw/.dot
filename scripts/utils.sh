@@ -8,6 +8,10 @@ msg() {
   echo "[INFO] $1"
 }
 
+prompt() {
+  echo "[INPUT] $1"
+}
+
 error() {
   echo "[ERROR] $1"
 }
@@ -37,7 +41,7 @@ ask() {
     fi
 
     while true; do
-        echo -n "$1 [$prompt] "
+        echo -n "[INPUT] $1 [$prompt] "
         read -r reply </dev/tty
 
         if [ -z $reply ]; then

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
-. ./utils.sh
+. ${HOME}/.dot/scripts/utils.sh
 
 print_block "Setting up ZSH"
 
@@ -25,8 +25,8 @@ if ask "Set tmux auto-attach?" Y; then
   read -p "Enter default session nasme [local]: " SESSION_NAME
   SESSION_NAME=${SESSION_NAME:-local}
 
-  if [ -f ${HOME}/.zshrc ]; then
-    grep "tmux attach" ${HOME}/.zshrc || echo $'\nif [ -z "$TMUX" ]; then\n    tmux attach -t '${SESSION_NAME}' || tmux new -s '${SESSION_NAME}$'\nfi\n' >> ${HOME}/.zshrc
+  if [ -f ${HOME}/.dot/local/zshrc ]; then
+    grep "tmux attach" ${HOME}/.dot/local/zshrc || echo $'\nif [ -z "$TMUX" ]; then\n    tmux attach -t '${SESSION_NAME}' || tmux new -s '${SESSION_NAME}$'\nfi\n' >> ${HOME}/.dot/local/zshrc
   fi
 fi
 
