@@ -4,9 +4,16 @@
 set -e
 . ./utils.sh
 
+# Init of the .dot repo
+print_block "Init .dot"
+/bin/bash ${HOME}/.dot/initdot.sh
+
+
+
+
 print_block "Starting install process"
 
-if ask "Should we bootstrap this system?"; then
+if ask "Should we bootstrap this system?" Y; then
 	echo "Let's bootstrap"
 else
 	echo "Ok skipping bootstrap"

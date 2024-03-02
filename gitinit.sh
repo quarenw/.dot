@@ -1,24 +1,22 @@
 #!/bin/sh
-set -e
 
+set -e
 . ./utils.sh
 
-echo "Checking for github and git cli, install if missing"; echo
+msg "Checking for github and git cli, install if missing"
 
 if command_exists git
 then
-	echo "git is installed, yay!"; echo
-	
+	msg "git is installed, yay!"
 else
-	echo "git not installed, sadge"
-	
+	msg "git not installed, sadge"
 fi
 
 if command_exists gh
 then
-	echo "gh is installed, yay!"
+	msg "gh is installed, yay!"
 else
-	echo "gh not installed, sdge"
+	msg "gh not installed, sdge"
 fi
 
 

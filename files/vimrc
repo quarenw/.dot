@@ -151,3 +151,5 @@ endif
 """ NEOVIM Config
 if has('nvim')
 endif
+
+source ${HOME}/.dot/local/vimrc

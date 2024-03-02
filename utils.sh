@@ -4,6 +4,14 @@ command_exists() {
 	command -v "$1" >/dev/null 2>&1
 }
 
+msg() {
+  echo "[INFO] $1"
+}
+
+error() {
+  echo "[ERROR] $1"
+}
+
 print_block() {
   echo ""
   echo "<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
