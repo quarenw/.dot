@@ -31,7 +31,7 @@ print_block "Core Setup"
 
 if ask "Setup core components?" Y; then
 	msg "Ok let's set up the minimum"
-  sh ${HOME}/.dot/scripts/coreConfig.sh
+  sh ${HOME}/.dot/scripts/system/coreConfig.sh
 else
 	msg "Ok skipping core config"
 fi

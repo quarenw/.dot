@@ -16,7 +16,7 @@ fi
 
 
 ##########################################################
-# System bootstraps
+# System core install
 if [ "$(uname)" = "Darwin" ]; then
 	msg "Detected MacOS"
   sh ${HOME}/.dot/scripts/system/configMac.sh

@@ -15,6 +15,7 @@ ln -sf ${HOME}/.dot/files/vimrc ${HOME}/.vimrc
 
 if command_exists nvim; then
   msg "Configuring NeoVIM"
+  mkdir -p ${HOME}/.config
   if [ -d ${HOME}/.config/nvim ]; then
     msg "nvim already exists"
     if ask "Backup nvim?" Y; then
