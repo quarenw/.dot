@@ -9,7 +9,6 @@ DISTRO=$(cat /etc/*release | grep '^ID=' | awk -F '=' '{ print $2 }' | sed 's/"/
 msg "Found to be running distro: $DISTRO"
 
 install_pac curl
-install_pac which
 install_pac ssh
 install_pac git
 
@@ -28,3 +27,4 @@ fi
 install_pac neovim "neovim-ppa/unstable"
 install_pac tmux
 
+install_pac yt-dlp tomtomtom/yt-dlp
