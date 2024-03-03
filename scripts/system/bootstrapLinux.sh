@@ -8,6 +8,11 @@ msg "Linux bootstrap setup"
 DISTRO=$(cat /etc/*release | grep '^ID=' | awk -F '=' '{ print $2 }' | sed 's/"//g' | tr A-Z a-z)
 msg "Found to be running distro: $DISTRO"
 
+if ask "Install fonts?"; then
+  sudo cp ${HOME}/.dot/files/fonts/* /usr/share/fonts/
+  fc-cache -f -v
+fi
+
 install_pac curl
 install_pac ssh
 install_pac git
