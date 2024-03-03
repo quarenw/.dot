@@ -11,4 +11,5 @@ if [ -f ${HOME}/.tmux.conf ]; then
 fi
 
 ln -sf ${HOME}/.dot/files/tmux.conf ${HOME}/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
