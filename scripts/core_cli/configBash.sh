@@ -46,20 +46,20 @@ done
 
 if [ -f ${HOME}/.bashrc ]; then
   msg "Setting up remote import"
-  grep "^\..*\.dot\/files\/shrc" ${HOME}/.bashrc || echo $'. ${HOME}/.dot/files/shrc\n' >> ${HOME}/.bashrc
-  grep "^\..*\.dot\/files\/bashrc" ${HOME}/.bashrc || echo $'. ${HOME}/.dot/files/bashrc\n' >> ${HOME}/.bashrc
+  grep "^\..*\.dot\/files\/shrc" ${HOME}/.bashrc || echo '. ${HOME}/.dot/files/shrc' >> ${HOME}/.bashrc
+  grep "^\..*\.dot\/files\/bashrc" ${HOME}/.bashrc || echo '. ${HOME}/.dot/files/bashrc' >> ${HOME}/.bashrc
   msg "Setting up local import"
-  grep "^\..*\.dot\/local\/shrc" ${HOME}/.bashrc || echo $'. ${HOME}/.dot/local/shrc\n' >> ${HOME}/.bashrc
-  grep "^\..*\.dot\/files\/bashrc" ${HOME}/.bashrc || echo $'. ${HOME}/.dot/files/bashrc\n' >> ${HOME}/.bashrc
+  grep "^\..*\.dot\/local\/shrc" ${HOME}/.bashrc || echo '. ${HOME}/.dot/local/shrc' >> ${HOME}/.bashrc
+  grep "^\..*\.dot\/local\/bashrc" ${HOME}/.bashrc || echo '. ${HOME}/.dot/local/bashrc' >> ${HOME}/.bashrc
 fi
 
 if [ -f ${HOME}/.bash_profile ]; then
   msg "Setting up remote import"
-  grep "^\..*\.dot\/local\/shrc" ${HOME}/.bash_profile || echo $'. ${HOME}/.dot/local/shrc\n' >> ${HOME}/.bash_profile
-  grep "^\..*\.dot\/local\/bashrc" ${HOME}/.bash_profile || echo $'. ${HOME}/.dot/local/bashrc\n' >> ${HOME}/.bash_profile
+  grep "^\..*\.dot\/files\/shrc" ${HOME}/.bash_profile || echo '. ${HOME}/.dot/files/shrc' >> ${HOME}/.bash_profile
+  grep "^\..*\.dot\/files\/bashrc" ${HOME}/.bash_profile || echo '. ${HOME}/.dot/files/bashrc' >> ${HOME}/.bash_profile
   msg "Setting up local import"
-  grep "^\..*\.dot\/local\/shrc" ${HOME}/.bash_profile || echo $'. ${HOME}/.dot/local/shrc\n' >> ${HOME}/.bash_profile
-  grep "^\..*\.dot\/local\/bashrc" ${HOME}/.bash_profile || echo $'. ${HOME}/.dot/local/bashrc\n' >> ${HOME}/.bash_profile
+  grep "^\..*\.dot\/local\/shrc" ${HOME}/.bash_profile || echo '. ${HOME}/.dot/local/shrc' >> ${HOME}/.bash_profile
+  grep "^\..*\.dot\/local\/bashrc" ${HOME}/.bash_profile || echo '. ${HOME}/.dot/local/bashrc' >> ${HOME}/.bash_profile
 fi
 
 if ask "Set tmux auto-attach?" Y; then

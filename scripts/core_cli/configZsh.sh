@@ -21,11 +21,11 @@ if [ -f ${HOME}/.zshrc ]; then
 
   # Zsh imports
   msg "Setting up remote import"
-  grep "^\..*\.dot\/files\/shrc" ${HOME}/.zshrc || echo -e '. ${HOME}/.dot/files/shrc\n' >> ${HOME}/.zshrc
-  grep "^\..*\.dot\/files\/zshrc" ${HOME}/.zshrc || echo -e '. ${HOME}/.dot/files/zshrc\n' >> ${HOME}/.zshrc
+  grep "^\..*\.dot\/files\/shrc" ${HOME}/.zshrc || echo '. ${HOME}/.dot/files/shrc' >> ${HOME}/.zshrc
+  grep "^\..*\.dot\/files\/zshrc" ${HOME}/.zshrc || echo '. ${HOME}/.dot/files/zshrc' >> ${HOME}/.zshrc
   msg "Setting up local import"
-  grep "^\..*\.dot\/local\/shrc" ${HOME}/.zshrc || echo -e '. ${HOME}/.dot/local/shrc\n' >> ${HOME}/.zshrc
-  grep "^\..*\.dot\/local\/zshrc" ${HOME}/.zshrc || echo -e '. ${HOME}/.dot/local/zshrc\n' >> ${HOME}/.zshrc
+  grep "^\..*\.dot\/local\/shrc" ${HOME}/.zshrc || echo '. ${HOME}/.dot/local/shrc' >> ${HOME}/.zshrc
+  grep "^\..*\.dot\/local\/zshrc" ${HOME}/.zshrc || echo '. ${HOME}/.dot/local/zshrc' >> ${HOME}/.zshrc
 fi
 
 if ask "Set tmux auto-attach?" Y; then
