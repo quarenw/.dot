@@ -17,10 +17,10 @@ fi
 
 # ZSH, VIM and Tmux
 msg "Install zsh, vim, nvim and tmux"
-brew install zsh
-brew install vim
-brew install nvim
-brew install tmux
+install zsh
+install vim
+install nvim
+install tmux
 
 # Manual MacOS Font install
 msg "Installing terminal font"

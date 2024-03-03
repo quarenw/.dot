@@ -30,15 +30,10 @@ print_block "Core Setup"
 ##########################################################
 
 if ask "Setup core components?" Y; then
-  # Core setup for MacOS
-  if [ "$(uname)" = "Darwin" ]; then
-    sh ${HOME}/.dot/scripts/system/configMac.sh
-  fi
-
-  # Core setup for Linux
-  if [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
-    sh ${HOME}/.dot/scripts/system/configLinux.sh
-  fi
+	msg "Ok let's set up the minimum"
+  sh ${HOME}/.dot/scripts/coreConfig.sh
+else
+	msg "Ok skipping core config"
 fi
 
 
@@ -48,8 +43,8 @@ print_block "Core Configs"
 if ask "Config core CLIs?" Y; then
   if command_exists bash; then bash ${HOME}/.dot/scripts/core_cli/configBash.sh; fi
   if command_exists zsh; then sh ${HOME}/.dot/scripts/core_cli/configZsh.sh; fi
-  if command_exists vim; then sh ${HOME}/.dot/scripts/core_cli/configVim.sh fi
-  if command_exists tmux; then sh ${HOME}/.dot/scripts/core_cli/configTmux.sh fi
+  if command_exists vim; then sh ${HOME}/.dot/scripts/core_cli/configVim.sh; fi
+  if command_exists tmux; then sh ${HOME}/.dot/scripts/core_cli/configTmux.sh; fi
 fi
 
  
