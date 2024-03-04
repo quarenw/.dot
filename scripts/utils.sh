@@ -82,15 +82,15 @@ install_pac() {
         if [ ! -z ${PPA} ]; then
           if command_exists add-apt-repository; then
             if ask "Install PPA support?" Y; then
-              msg "Skipping"
-            else
-              yes | sudo apt-get install software-properties-common
               sudo add-apt-repository -y ppa:$2
               sudo apt-get update
               yes | sudo apt-get install $1
               msg "Installled $1"
+            else
+              msg "Skipping"
             fi
           else
+              yes | sudo apt-get install software-properties-common
               sudo add-apt-repository -y ppa:$2
               sudo apt-get update
               yes | sudo apt-get install $1
