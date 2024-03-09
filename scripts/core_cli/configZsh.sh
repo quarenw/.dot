@@ -16,7 +16,7 @@ fi
 if [ -f ${HOME}/.zshrc ]; then
   # Zsh theme
   msg "Setting zsh theme"
-  ln -s ${HOME}/.dot/files/zsh/imp.zsh-theme ${HOME}/.oh-my-zsh/themes/
+  ! [ -f ${HOME}/.oh-my-zsh/themes/imp.zsh-theme ] && ln -s ${HOME}/.dot/files/zsh/imp.zsh-theme ${HOME}/.oh-my-zsh/themes/
   [ -f ${HOME}/.zshrc ] && sed -i.backup -e "s,ZSH_THEME=.*,ZSH_THEME='imp',g" ${HOME}/.zshrc
 
   # Zsh imports
@@ -33,7 +33,7 @@ if ask "Set tmux auto-attach?" Y; then
   SESSION_NAME=${SESSION_NAME:-local}
 
   if [ -f ${HOME}/.dot/local/zshrc ]; then
-    grep "tmux attach" ${HOME}/.dot/local/zshrc || echo -e '\nif [ -z "$TMUX" ]; then\n    tmux attach -t '${SESSION_NAME}' || tmux new -s '${SESSION_NAME}$'\nfi\n' >> ${HOME}/.dot/local/zshrc
+    grep "tmux attach" ${HOME}/.dot/local/zshrc || echo $'\nif [ -z "$TMUX" ]; then\n    tmux attach -t '${SESSION_NAME}' || tmux new -s '${SESSION_NAME}$'\nfi\n' >> ${HOME}/.dot/local/zshrc
   fi
 fi
 
