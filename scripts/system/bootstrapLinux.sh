@@ -9,8 +9,11 @@ DISTRO=$(cat /etc/*release | grep '^ID=' | awk -F '=' '{ print $2 }' | sed 's/"/
 msg "Found to be running distro: $DISTRO"
 
 if ask "Install fonts?"; then
-  sudo cp ${HOME}/.dot/files/fonts/* /usr/share/fonts/
-  fc-cache -f -v
+  if [ -d /usr/share/fonts/ ] || ask "Directory doesn't exist, are you sure?" N; then
+    ! [ -d /usr/share/fonts/ ] && mkdir -p /usr/share/fonts/
+    sudo cp ${HOME}/.dot/files/fonts/* /usr/share/fonts/
+    fc-cache -f -v
+  fi
 fi
 
 install_pac curl
