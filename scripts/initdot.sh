@@ -19,3 +19,4 @@ if [ ! -d ./backup ]; then
 else
   msg "Backup folder already exists"
 fi
+

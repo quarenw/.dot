@@ -22,6 +22,14 @@ install_pac vim
 install_pac nvim
 install_pac tmux
 
+install_pac net-tools
+install_pac ripgrep
+install_pac fzf
+install_pac fd
+
+install_pac gcc
+install_pac gpp
+
 # Manual MacOS Font install
 msg "Installing terminal font"
 cp ${HOME}/files/fonts/*.ttf ${HOME}/Library/Fonts/

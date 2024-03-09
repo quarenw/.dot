@@ -67,6 +67,6 @@ if ask "Set tmux auto-attach?" Y; then
   SESSION_NAME=${SESSION_NAME:-local}
 
   if [ -f ${HOME}/.dot/local/bashrc ]; then
-    grep "tmux attach" ${HOME}/.dot/local/bashrc || echo $'\nif [ -z "$TMUX" ]; then\n    tmux attach -t '${SESSION_NAME}' || tmux new -s '${SESSION_NAME}$'\nfi\n' >> ${HOME}/.dot/local/bashrc
+    grep "tmux new-session" ${HOME}/.dot/local/bashrc || echo $'\n[ -z "$TMUX" ] && tmux new-session -A -s '${SESSION_NAME} >> ${HOME}/.dot/local/bashrc
   fi
 fi

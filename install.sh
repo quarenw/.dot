@@ -63,7 +63,7 @@ fi
 
 ##########################################################
 # Git setup
-if command_exists git; then
+if command_exists git && ask "Setup git?" Y; then
   msg "Let's get Git set up"
 
   prompt "What name should we use for Git?"
@@ -72,6 +72,19 @@ if command_exists git; then
   read gitemail
   git config --global user.name $gitname
   git config --global user.email $gitemail
+fi
+ 
+
+##########################################################
+# Modules
+print_block "Modules"
+if ask "Should we modularize?" Y; then
+  MODULE_SCRIPTS=$(ls ${HOME}/.dot/scripts/modules/ | awk -F '.' '{ print $1 }')
+  for i in $MODULE_SCRIPTS; do
+    if ask "Setup $i?" N; then
+      bash ${HOME}/.dot/scripts/programming/"$i".sh
+    fi
+  done
 fi
 
 # # if [ $0 != -zsh ]; then

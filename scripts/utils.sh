@@ -74,10 +74,10 @@ get_distro() {
 install_pac() {
   DISTRO=$(get_distro)
   PACKAGE=$1
-  PPA=$2
 
   case $DISTRO in
     debian|ubuntu|mint)
+      PPA=$2
       if ask "Install $1" Y; then
         if [ ! -z ${PPA} ]; then
           if command_exists add-apt-repository; then
@@ -112,12 +112,14 @@ install_pac() {
       ;;
 
     darwin)
+      CASK=$2
+      CASK_CMD=$( ! [ -z "${CASK}" ] && echo "--cask")
       brew update
-      brew install $1
+      brew install ${CASK_CMD} $1
       ;;
 
     *)
-      echo -n "unsupported OS"
+      error "Unsupported OS"
       ;;
   esac
 }

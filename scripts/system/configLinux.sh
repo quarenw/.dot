@@ -6,3 +6,6 @@ set -e
 msg "Linux core setup"
 
 
+
+install_pac yt-dlp tomtomtom/yt-dlp
+

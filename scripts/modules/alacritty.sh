@@ -5,3 +5,4 @@ set -e
 
 msg "Setting up Alacritty"
 
+

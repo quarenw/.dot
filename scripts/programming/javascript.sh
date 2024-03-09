@@ -22,7 +22,7 @@ if [ ! $( command_exists nvm) ]; then
 
   # Add nvm to all possible shells
   msg "Add nvm to all possible shells"
-  declare -a shells_arr=(".zshrc", ".bashrc", ".bash_profile")
+  declare -a shells_arr=(".zshrc" ".bashrc" ".bash_profile")
   for i in "${shells_arr[@]}"; do
     [ -f ${HOME}/"$i" ] && grep "nvm" ${HOME}/"$i" || echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm\n' >> ${HOME}/"$i"
   done

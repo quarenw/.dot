@@ -6,17 +6,17 @@ set -e
 msg "MacOS core setup"
 
 msg "Install all the casks"
-brew install --cask rectangle
-brew install --cask karabiner-elements
-brew install --cask clipy
-brew install --cask unnaturalscrollwheels
+install_pac rectangle cask
+install_pac karabiner-elements cask
+install_pac clipy cask
+install_pac unnaturalscrollwheels cask
 
-brew install --cask google-chrome
-brew install --cask visual-studio-code
-brew install --cask docker
-brew install --cask google-cloud-sdk
+install_pac google-chrome cask
+install_pac visual-studio-code cask
+install_pac docker cask
+install_pac google-cloud-sdk cask
 
-brew install --cask slack
-brew install --cask vlc
+install_pac slack cask
+install_pac vlc cask
 
 

@@ -20,6 +20,11 @@ install_pac curl
 install_pac ssh
 install_pac git
 
+install_pac net-tools
+install_pac ripgrep
+install_pac fzf
+install_pac fd
+
 install_pac gcc
 install_pac gpp
 
@@ -35,4 +40,3 @@ fi
 install_pac neovim "neovim-ppa/unstable"
 install_pac tmux
 
-install_pac yt-dlp tomtomtom/yt-dlp
