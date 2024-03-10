@@ -6,8 +6,19 @@ set -e
 msg "MacOS bootstrap setup"
 
 # xcode install
-msg "Installing xcode commmand line tools"
-xcode-select --install
+if [ $(xcode-select -p > /dev/null 2>&1; echo $?) = "2" ]; then
+  msg "Looks like xcode is already set up, yay, that thing is such a chore"
+fi
+
+while [ $(xcode-select -p > /dev/null 2>&1; echo $?) = "2" ]
+do
+  msg "Installing xcode commmand line tools"
+  msg "Waiting for installation to be complete"
+  msg "Press enter to continue..."
+  xcode-select --install
+  read
+done
+
 
 # Brew yourself a pacman
 if [ ! $(command_exists brew) ]; then
@@ -15,12 +26,19 @@ if [ ! $(command_exists brew) ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+
 # ZSH, VIM and Tmux
 msg "Install zsh, vim, nvim and tmux"
+install_pac bash
 install_pac zsh
+install_pac fish
+
 install_pac vim
 install_pac nvim
 install_pac tmux
+
+install_pac curl
+install_pac wget
 
 install_pac net-tools
 install_pac ripgrep

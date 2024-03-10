@@ -23,7 +23,7 @@ install_pac git
 install_pac net-tools
 install_pac ripgrep
 install_pac fzf
-install_pac fd
+install_pac fd-find
 
 install_pac gcc
 install_pac gpp

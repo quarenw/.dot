@@ -114,8 +114,10 @@ install_pac() {
     darwin)
       CASK=$2
       CASK_CMD=$( ! [ -z "${CASK}" ] && echo "--cask")
-      brew update
-      brew install ${CASK_CMD} $1
+      if ask "Install $1" Y; then
+        brew update
+        brew install ${CASK_CMD} $1
+      fi
       ;;
 
     *)
