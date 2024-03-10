@@ -17,7 +17,7 @@ if [ $(command -v "wget") ] && [ $(command -v "tar") ]; then
 elif [ $(command -v "curl") ] && [ $(command -v "tar") ]; then
   echo "[INFO] Let's get this puppy downloaded with curl"
   cd ${HOME} && \
-  curl https://github.com/${GH_USER}/${GH_REPO}/archive/refs/heads/${GH_BRANCH}.tar.gz -o "${SYS_PATH}.tar.gz" && \
+  curl -L https://github.com/${GH_USER}/${GH_REPO}/archive/refs/heads/${GH_BRANCH}.tar.gz -o "${SYS_PATH}.tar.gz" && \
   tar -xzvf "${SYS_PATH}.tar.gz" && \
   mv "${HOME}/${GH_REPO}-${GH_BRANCH}/" "${HOME}/.dot" && \
   rm "${SYS_PATH}.tar.gz"

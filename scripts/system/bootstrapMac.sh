@@ -6,12 +6,11 @@ set -e
 msg "MacOS bootstrap setup"
 
 # xcode install
-if [ $(xcode-select -p > /dev/null 2>&1; echo $?) = "2" ]; then
+if [ "$(xcode-select -p 2> /dev/null)" ]; then
   msg "Looks like xcode is already set up, yay, that thing is such a chore"
 fi
 
-while [ $(xcode-select -p > /dev/null 2>&1; echo $?) = "2" ]
-do
+while [ "$(xcode-select -p 2> /dev/null)" ]; do
   msg "Installing xcode commmand line tools"
   msg "Waiting for installation to be complete"
   msg "Press enter to continue..."
