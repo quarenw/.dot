@@ -10,7 +10,7 @@ if [ "$(xcode-select -p 2> /dev/null)" ]; then
   msg "Looks like xcode is already set up, yay, that thing is such a chore"
 fi
 
-while [ "$(xcode-select -p 2> /dev/null)" ]; do
+while [ ! "$(xcode-select -p 2> /dev/null)" ]; do
   msg "Installing xcode commmand line tools"
   msg "Waiting for installation to be complete"
   msg "Press enter to continue..."
