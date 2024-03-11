@@ -20,7 +20,9 @@ done
 
 
 # Brew yourself a pacman
-if [ ! $(command_exists brew) ]; then
+if command_exists brew; then
+  msg "Brew here"
+else
   msg "Installing Brew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -49,5 +51,5 @@ install_pac gpp
 
 # Manual MacOS Font install
 msg "Installing terminal font"
-cp ${HOME}/files/fonts/*.ttf ${HOME}/Library/Fonts/
+cp ${HOME}/.dot/files/fonts/*.ttf ${HOME}/Library/Fonts/
 

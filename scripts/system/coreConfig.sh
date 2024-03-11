@@ -6,7 +6,7 @@ set -e
 
 ##########################################################
 # SSH key
-if [ ! -f ${HOME}/.ssh/id_rsa ] && [ $(command_exists "ssh-keygen") ]; then
+if [ ! -f ${HOME}/.ssh/id_rsa ] && [ $(command -v "ssh-keygen") ]; then
   msg "Generating SSH key"
   ssh-keygen -t rsa -b 4096 -f "${HOME}/.ssh/id_rsa"
 else
@@ -20,8 +20,7 @@ fi
 if [ "$(uname)" = "Darwin" ]; then
 	msg "Detected MacOS"
   sh ${HOME}/.dot/scripts/system/configMac.sh
-fi
-if [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 	msg "Detected Linux"
   sh ${HOME}/.dot/scripts/system/configLinux.sh
 fi

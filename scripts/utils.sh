@@ -56,7 +56,11 @@ ask() {
 }
 
 get_os() {
-  echo "$(expr substr $(uname -s) 1 5 | tr A-Z a-z)"
+  if [ "$(uname)" = "Darwin" ]; then
+    echo "darwin"
+  else
+    echo "$(expr substr $(uname -s) 1 5 | tr A-Z a-z)"
+  fi
 }
 
 get_distro() {
@@ -113,7 +117,9 @@ install_pac() {
 
     darwin)
       CASK=$2
-      CASK_CMD=$( ! [ -z "${CASK}" ] && echo "--cask")
+      if [ ! -z $CASK ]; then
+        CASK_CMD="--cask"
+      fi
       if ask "Install $1" Y; then
         brew update
         brew install ${CASK_CMD} $1
