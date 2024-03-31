@@ -63,3 +63,8 @@ cd ~/.dot && \
 ```
 
 This will require `wget` and `sudo` to be installed.
+
+Once installed, plugins for the following will need to be installed:
+- `vim` should install automatically but if not `:PlugInstall`
+- `nvim` should install automatically both Plug and Packer but if not for packer `:PackerSync`
+- `tmux` need to press `Ctrl+b I` (capital i)

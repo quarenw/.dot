@@ -41,7 +41,6 @@ install_pac tmux
 install_pac curl
 install_pac wget
 
-install_pac net-tools
 install_pac ripgrep
 install_pac fzf
 install_pac fd
@@ -54,7 +53,7 @@ msg "Installing terminal font"
 cp ${HOME}/.dot/files/fonts/*.ttf ${HOME}/Library/Fonts/
 
 
-if ask "Should we modularize?" Y; then
+if ask "Customize MacOS?" Y; then
   # Automatically hide and show the Dock
   defaults write com.apple.dock autohide -bool true
 
