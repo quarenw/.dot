@@ -115,6 +115,11 @@ install_pac() {
       sudo yum install $1
       ;;
 
+    arch|manjaro)
+      sudo pacman -Syy
+      sudo pacman -S $1
+      ;;
+
     darwin)
       CASK=$2
       if [ ! -z $CASK ]; then

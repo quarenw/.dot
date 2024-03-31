@@ -82,7 +82,7 @@ if ask "Should we modularize?" Y; then
   MODULE_SCRIPTS=$(ls ${HOME}/.dot/scripts/modules/ | awk -F '.' '{ print $1 }')
   for i in $MODULE_SCRIPTS; do
     if ask "Setup $i?" N; then
-      bash ${HOME}/.dot/scripts/programming/"$i".sh
+      bash ${HOME}/.dot/scripts/modules/"$i".sh
     fi
   done
 fi

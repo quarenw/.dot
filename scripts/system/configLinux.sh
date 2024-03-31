@@ -5,7 +5,11 @@ set -e
 
 msg "Linux core setup"
 
+#install_pac yt-dlp tomtomtom/yt-dlp
+install_pac alacritty
 
-
-install_pac yt-dlp tomtomtom/yt-dlp
+if ask "Setup perosnal apps?" Y; then
+  install_pac telegram
+  install_pac steam
+fi
 

@@ -12,6 +12,7 @@ install_pac rectangle cask
 install_pac karabiner-elements cask
 install_pac clipy cask
 install_pac unnaturalscrollwheels cask
+install_pac alacritty cask
 
 
 # Need this as a matter of course

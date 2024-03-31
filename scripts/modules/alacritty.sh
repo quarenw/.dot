@@ -5,4 +5,5 @@ set -e
 
 msg "Setting up Alacritty"
 
+ln -sf ${HOME}/.dot/files/config/alacritty ${HOME}/.config/alacritty
 

@@ -17,6 +17,7 @@ if ask "Install fonts?"; then
 fi
 
 install_pac curl
+install_pac wget
 install_pac ssh
 install_pac git
 
