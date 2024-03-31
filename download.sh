@@ -4,7 +4,7 @@ set -e
 
 GH_USER=quarenw
 GH_REPO=".dot"
-GH_BRANCH="new-setup"
+GH_BRANCH="main"
 SYS_PATH="${HOME}/${GH_USER}-${GH_REPO}-${GH_BRANCH}"
 
 if [ $(command -v "wget") ] && [ $(command -v "tar") ]; then
