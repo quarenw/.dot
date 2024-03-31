@@ -1,114 +1,92 @@
 #!/bin/sh
 
-print () {
-  echo ""
-  echo "<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
-  echo "${1}"
-  echo "<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
-  echo ""
-}
+# Set stop on errors and load util functions
+set -e
+. ${HOME}/.dot/scripts/utils.sh
 
-if [ ! -f $HOME/.ssh/id_rsa ]; then
-  print "Generating SSH key"
-  ssh-keygen -t rsa -b 4096 -f "$HOME/.ssh/id_rsa"
+##########################################################
+print_block "Bootstrapping"
+##########################################################
+
+##########################################################
+# Init of the .dot repo
+print_block "Init .dot"
+sh ${HOME}/.dot/scripts/initdot.sh
+
+
+##########################################################
+# Bootstrap
+print_block "Starting install process"
+if ask "Should we bootstrap this system?" Y; then
+	msg "Bootstrap in"
+  sh ${HOME}/.dot/scripts/bootstrap.sh
+else
+	msg "Ok skipping bootstrap"
 fi
 
-# Install core dev
-print "Getting the core dev setup"
 
-# Core setup for MacOS
-if [ "$(uname)" = "Darwin" ]; then
-  print "MacOS core setup"
+##########################################################
+print_block "Core Setup"
+##########################################################
 
-  # Brew
-  if [ -z "$(command -v brew)" ]; then
-    print "Install Brew to get us started on Mac"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-
-  # ZSH, VIM and Tmux
-  print "Install zsh, vim and tmux"
-
-  brew install zsh
-  brew install vim
-  brew install tmux
-
-  # Manual MacOS Font install
-  # cd ~/Library/Fonts && { 
-  #   curl -o RobotoMonoPowerline.ttf 'https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf'
-  #   cd -; }
-
-# Core setup for Linux
-elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
-  print "Linux core setup"
-  # Core setup for Linux
-  sudo apt update
-  sudo apt upgrade
-  sudo apt-get install -y curl
-  sudo apt-get install -y zsh
-  sudo apt-get install -y vim-athena
-  sudo apt-get install -y neovim
-  sudo apt-get install -y tmux
+if ask "Setup core components?" Y; then
+	msg "Ok let's set up the minimum"
+  sh ${HOME}/.dot/scripts/system/coreConfig.sh
+else
+	msg "Ok skipping core config"
 fi
 
-# Oh my ZSH
-print "Oh my"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Fonts
-print "Install fonts"
-git clone https://github.com/powerline/fonts.git --depth=1
-cd fonts
-./install.sh
-cd ..
-rm -rf fonts
+##########################################################
+# CORE CONFIGS
+print_block "Core Configs"
+if ask "Config core CLIs?" Y; then
+  if command_exists bash; then bash ${HOME}/.dot/scripts/core_cli/configBash.sh; fi
+  if command_exists zsh; then sh ${HOME}/.dot/scripts/core_cli/configZsh.sh; fi
+  if command_exists vim; then sh ${HOME}/.dot/scripts/core_cli/configVim.sh; fi
+  if command_exists tmux; then sh ${HOME}/.dot/scripts/core_cli/configTmux.sh; fi
+fi
 
-/bin/bash ${HOME}/.dot/updateBash.sh
-/bin/bash ${HOME}/.dot/updateZsh.sh
-/bin/bash ${HOME}/.dot/updateVim.sh
-/bin/bash ${HOME}/.dot/updateTmux.sh
+ 
+##########################################################
+# PROGRAMMING
+print_block "Programming"
+if ask "Is this a programming compter?" N; then
+  PROG_LANGS=$(ls ${HOME}/.dot/scripts/programming/ | awk -F '.' '{ print $1 }')
+  for i in $PROG_LANGS; do
+    if ask "Setup $i?" N; then
+      bash ${HOME}/.dot/scripts/programming/"$i".sh
+    fi
+  done
+fi
 
-# Install NVM
-print "Javascript Five star dev"
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-nvm install 12
-nvm install 8
-nvm install node
-nvm use 12
-# Add nvm to Zsh if it exists
-[ -f ${HOME}/.zshrc ] && grep "nvm" ${HOME}/.zshrc || echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm\n' >> ${HOME}/.zshrc
 
+##########################################################
 # Git setup
-print "Let's get Git set up"
+if command_exists git && ask "Setup git?" Y; then
+  msg "Let's get Git set up"
 
-echo "What name should we use for Git?"
-read gitname
-echo "What email should we use for Git?"
-read gitemail
-git config --global user.name $gitname
-git config --global user.email $gitemail
+  prompt "What name should we use for Git?"
+  read gitname
+  prompt "What email should we use for Git?"
+  read gitemail
+  git config --global user.name $gitname
+  git config --global user.email $gitemail
+fi
+ 
 
-# Mac Apps
-if [ "$(uname)" = "Darwin" ]; then
-print "Install all the casks"
-  brew install --cask rectangle
-  brew install --cask karabiner-elements
-  brew install --cask clipy
-  brew install --cask unnaturalscrollwheels
-
-  brew install --cask google-chrome
-  brew install --cask visual-studio-code
-  brew install --cask docker
-  brew install --cask google-cloud-sdk
-
-  brew install --cask slack
-  brew install --cask vlc
+##########################################################
+# Modules
+print_block "Modules"
+if ask "Should we modularize?" Y; then
+  MODULE_SCRIPTS=$(ls ${HOME}/.dot/scripts/modules/ | awk -F '.' '{ print $1 }')
+  for i in $MODULE_SCRIPTS; do
+    if ask "Setup $i?" N; then
+      bash ${HOME}/.dot/scripts/modules/"$i".sh
+    fi
+  done
 fi
 
-print "Setup complete, congratulations!"
-
-# if [ $0 != -zsh ]; then
-#   chsh -s /bin/zsh
-# fi
+# # if [ $0 != -zsh ]; then
+# #   chsh -s /bin/zsh
+# # fi

@@ -1,0 +1,7 @@
+alias fman="compgen -c | fzf | xargs man"
+
+function top_size() {
+  IN_N=$1
+  TOP_N=${IN_N:-10}
+  du -ah . | sort -hr | head -n "$TOP_N"
+}
