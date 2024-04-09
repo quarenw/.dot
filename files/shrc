@@ -1,7 +1,41 @@
+
+function hg() { 
+  QUERY=$1 
+  HISTORY_NUMBER=${2:-10} 
+
+  history | grep -e $QUERY | tail -n $HISTORY_NUMBER
+}
+
+# Use fzf to find a command in history and add it into the current command line buffer so we can edit if needed
+# Uses print relying on zsh so will only work on zsh
+function fhg() {
+  CURRENT_COMMAND=$(history | fzf)
+  print -rz -- $(echo $CURRENT_COMMAND | sed -E 's/^[ ]*[0-9]*[ ]*//g')
+}
+
 alias fman="compgen -c | fzf | xargs man"
 
 function top_size() {
-  IN_N=$1
-  TOP_N=${IN_N:-10}
+  TOP_N=${1:-10}
   du -ah . | sort -hr | head -n "$TOP_N"
+}
+
+function gita() {
+  FILE_TO_ADD=${1:-.}
+  git add $FILE_TO_ADD
+  git commit --amend --no-edit
+}
+
+function gcomp() {
+  LEFT=$1
+  RIGHT=$2
+
+  git rev-list --left-right --count $LEFT...$RIGHT
+}
+
+function gcompc() {
+  LEFT=$1
+  RIGHT=$2
+
+  git rev-list --left-right --pretty=oneline $LEFT...$RIGHT
 }
