@@ -109,6 +109,10 @@ if ask "Customize MacOS?" Y; then
 
   # Set the icon size of Dock items to 36 pixels
   defaults write com.apple.dock tilesize -int 32
+  
+  # Set HOME directory as default directory Finder opens
+  defaults write com.apple.finder NewWindowTarget -string "PfLo"
+  defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
 
   # Don’t group windows by application in Mission Control
   # (i.e. use the old Exposé behavior instead)
