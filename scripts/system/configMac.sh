@@ -26,6 +26,9 @@ install_pac virtualbox cask
 if ask "Setup perosnal apps?" Y; then
   install_pac telegram cask
   install_pac steam cask # Long shot but ever the optimist
+  install_pac teamviewer cask
+  install_pac onedrive cask
+  install_pac obsidian cask
 fi
 
 
