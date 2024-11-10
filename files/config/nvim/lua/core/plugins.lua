@@ -16,6 +16,16 @@ return require('packer').startup(function(use)
   use 'nvim-tree/nvim-tree.lua'
   use 'nvim-tree/nvim-web-devicons'
   use 'nvim-treesitter/nvim-treesitter'
+  --use 'hrsh7th/nvim-cmp'
+  --use 'hsshsth/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'dcampos/nvim-snippy'
+  use 'dcampos/cmp-snippy'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/nvim-cmp'
   use {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
