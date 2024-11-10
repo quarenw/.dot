@@ -7,7 +7,7 @@ require("mason-lspconfig").setup({
 local servers = {
   { 'lua_ls' },
   { 'clangd' },
-  { 'tsserver' },
+  { 'ts_ls' },
 }
 
 local lsp = require('lspconfig')
