@@ -2,3 +2,5 @@
 
 backup/
 local/
+
+packer_compiled.lua
