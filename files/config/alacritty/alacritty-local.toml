@@ -1,6 +1,0 @@
-[font]
-size = 11
-
-# FIX FOR MAC MISSION CONTROL SLOW ANIMATION
-[window]
-opacity = 0.99
