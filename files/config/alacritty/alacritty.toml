@@ -1,4 +1,4 @@
-import = [
+general.import = [
   "~/.dot/local/alacritty-local.toml",
   # uncomment the flavour you want below:
   #"~/.config/alacritty/catppuccin-latte.toml"
