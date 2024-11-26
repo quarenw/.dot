@@ -73,6 +73,7 @@ set incsearch " live incremental searching
 set showmatch " live match highlighting
 set hlsearch " highlight matches
 set gdefault " use the `g` flag by default.
+set autochdir " Set autodirectory
 
 
 "Remap to get out of insert and visual mode without esc
