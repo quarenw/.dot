@@ -48,6 +48,9 @@ let mapleader = ","
 "Backspace behavior delete in normal mode as expected
 nnoremap <BS> "_X
 
+"Backspace insert mode delete beyond default start
+set backspace=indent,eol,start
+
 set tabstop=2 " tab equal 2 whitespace chars
 set shiftwidth=2 " shifting means 2 whitespace chars
 set softtabstop=2 " 2 columns of whitespace tab or backspace
