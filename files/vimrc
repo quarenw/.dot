@@ -118,6 +118,9 @@ noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 "Set leader + b to list buffers
 nnoremap <Leader>b :ls<CR>:b<Space>
 
+"Set quick check of unsaved changes
+map <Leader>c :w !diff % -<CR>
+
 "Autofocus hybrid line number mode
 :set number relativenumber
 

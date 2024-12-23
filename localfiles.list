@@ -5,3 +5,4 @@ zshrc
 bashrc
 shrc
 tmux.conf
+treesitter.lua
