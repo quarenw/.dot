@@ -39,3 +39,9 @@ function gcompc() {
 
   git rev-list --left-right --pretty=oneline $LEFT...$RIGHT
 }
+
+function lastcommit() {
+  COMMIT=$1
+
+  git diff $COMMIT~ $COMMIT
+}
