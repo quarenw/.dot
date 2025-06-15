@@ -1,4 +1,10 @@
-
+# @tags shell
+# @name hg
+# @info
+# Params: command, number limit (opt: 10 default)
+# Info: Grep history of commands
+# Ex: fhg
+# @einfo
 function hg() { 
   QUERY=$1 
   HISTORY_NUMBER=${2:-10} 
@@ -6,42 +12,241 @@ function hg() {
   history | grep -e $QUERY | tail -n $HISTORY_NUMBER
 }
 
-# Use fzf to find a command in history and add it into the current command line buffer so we can edit if needed
+# @tags shell
+# @name fhg
+# @info
+# Params: None
+# Info: Use fzf to find a command in history and add it into the current command line buffer so we can edit if needed
 # Uses print relying on zsh so will only work on zsh
+# Ex: fhg
+# @einfo
 function fhg() {
-  CURRENT_COMMAND=$(history | fzf)
-  print -rz -- $(echo $CURRENT_COMMAND | sed -E 's/^[ ]*[0-9]*[ ]*//g')
+  if command_exists fzf; then
+    CURRENT_COMMAND=$(history | fzf)
+    print -rz -- $(echo $CURRENT_COMMAND | sed -E 's/^[ ]*[0-9]*[ ]*//g')
+  else
+    echo "Missing fzf"
+  fi
 }
 
-alias fman="compgen -c | fzf | xargs man"
+# @tags shell
+# @name fman
+# @info
+# Params: None
+# Info: Fuzzy find search of man pages
+# Ex: fman
+# @einfo
+function fman() {
+  compgen -c | fzf | xargs man
+}
 
+# @tags shell
+# @name top_size
+# @info
+# Params: Number (opt: 10 default)
+# Info: Shows the size of the top n files in folder
+# Ex: top_size 15
+# @einfo
 function top_size() {
   TOP_N=${1:-10}
   du -ah . | sort -hr | head -n "$TOP_N"
 }
 
+# @tags git
+# @name gita
+# @info
+# Params: files (opt: . default)
+# Info: Adds files to last commit
+# Ex: gita file.ext
+# @einfo
 function gita() {
   FILE_TO_ADD=${1:-.}
   git add $FILE_TO_ADD
   git commit --amend --no-edit
 }
 
+# @tags git
+# @name gcomp
+# @info
+# Params: left, right
+# Info: Count of all changes between the two different commits
+# Ex: gcompc HEAD origin
+# @einfo
 function gcomp() {
-  LEFT=$1
-  RIGHT=$2
+  if command_exists git; then
+    LEFT=$1
+    RIGHT=$2
 
-  git rev-list --left-right --count $LEFT...$RIGHT
+    git rev-list --left-right --count $LEFT...$RIGHT
+  else
+    echo "Missing git"
+  fi
 }
 
+# @tags git
+# @name gcompc
+# @info
+# Params: left, right
+# Info: View all changes between the two different commits
+# Ex: gcompc HEAD origin
+# @einfo
 function gcompc() {
-  LEFT=$1
-  RIGHT=$2
-
-  git rev-list --left-right --pretty=oneline $LEFT...$RIGHT
+  if command_exists git; then
+    LEFT=$1
+    RIGHT=$2
+    git rev-list --left-right --pretty=oneline $LEFT...$RIGHT
+  else
+    echo "Missing git"
+  fi
 }
 
+# @tags git
+# @name lastcommit
+# @info
+# Params: commit
+# Info: Diff of the commit
+# Ex: lastcommit HEAD
+# @einfo
 function lastcommit() {
-  COMMIT=$1
+  if command_exists git; then
+    COMMIT=$1
+    git diff $COMMIT~ $COMMIT
+  else 
+    echo "Missing git"
+  fi
+}
 
-  git diff $COMMIT~ $COMMIT
+# @tags git
+# @name gitif
+# @info
+# Params: URL, (opt: main default) branch
+# Info: Initializes a folder to an empty repo at URL
+# Ex: gitif https://github.com/{user}/{repo}.git main
+# @einfo
+function gitif() {
+  MAINBRANCH=${2:-main}
+  if command_exists git; then
+    git init
+    git add .
+    git commit -m "init"
+    git remote add origin $1
+    git remote -v
+    git push -f origin MAINBRANCH
+  else 
+    echo "Missing git"
+  fi
+}
+
+# @tags git
+# @name gitorg
+# @info
+# Params: URL 
+# Info: Adds an origin to git repo
+# Ex: gitorg https://github.com/{user}/{repo}.git
+# @einfo
+function gitorg() {
+  if command_exists git; then
+    git remote add origin $1
+  else 
+    echo "Missing git"
+  fi
+}
+
+
+function cheat() {
+    local filename="$HOME/.dot/files/shrc"
+
+    # Check for this file
+    if [ ! -f "$filename" ]; then
+        echo "Error: Can't find shell file"
+        return 1
+    fi
+
+    local arg1="$1"
+    local arg2="$2"
+
+    # Tag search
+    if [ "$arg1" = "-t" ]; then
+        if [ -z "$arg2" ]; then
+            awk '
+            BEGIN { FS = "," }
+            /^# @tags/ {
+                tags_line = substr($0, index($0, "# @tags") + length("# @tags"));
+                
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", tags_line);
+
+                gsub(/,[[:space:]]*/, ",", tags_line);
+                gsub(/[[:space:]]*,/, ",", tags_line);
+
+                split(tags_line, tags_arr, ",");
+                for (i in tags_arr) {
+                    tag = tags_arr[i];
+                    gsub(/^[[:space:]]+|[[:space:]]+$/, "", tag);
+                    if (tag != "") {
+                        unique_tags[tag] = 1;
+                    }
+                }
+            }
+            END {
+                for (tag in unique_tags) {
+                    print tag;
+                }
+            }' "$filename" | sort -u
+            return 0
+        fi
+
+        local search_tag="$arg2"
+        
+        awk -v tag="$search_tag" '
+        BEGIN { in_block = 0 }
+        $0 ~ tag { 
+            in_block = 1;
+            next;
+        }
+        in_block == 1 {
+            if (/^# @name/) {
+                in_block = 0;
+                sub(/^[[:space:]]*#[[:space:]]@name[[:space:]]*/, "");
+                print;
+            }
+        }' "$filename"
+        return 0
+    fi
+
+    local search_name="$arg1"
+
+    local escaped_search_name=$(echo "$search_name" | sed 's/[][{}().+*?|^$\\]/\\&/g')
+
+    # Command info
+    if [ -n "$search_name" ]; then
+        # Find the block for the given name and extract content between @info and @einfo
+        awk -v name_regex_pattern="^# @name[[:space:]]+${escaped_search_name}$" '
+        BEGIN { in_block = 0; in_info = 0; }
+        $0 ~ name_regex_pattern { 
+            in_block = 1;
+            next;
+        }
+        in_block == 1 {
+            if (/^# @einfo/) {
+                in_info = 0;
+                in_block = 0;
+            }
+            if (in_info == 1) {
+                sub(/^[[:space:]]*#[[:space:]]*/, "");
+                print;
+            }
+            if (/^# @info/) {
+                in_info = 1;
+            }
+        }' "$filename"
+        return 0
+    fi
+
+    # No arguments, list all names
+    grep "^# @name" "$filename" | sed 's/^# @name[[:space:]]*//'
+    return 0
+}
+
+function command_exists() {
+	command -v "$1" >/dev/null 2>&1
 }

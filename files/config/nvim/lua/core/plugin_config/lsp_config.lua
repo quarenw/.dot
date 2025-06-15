@@ -40,6 +40,8 @@ local lua_ls_config = {
   },
 }
 
+vim.keymap.set("n", "K", ":lua vim.lsp.buf.hover()<CR>")
+
 local gopls_config = {
   capabilities = capabilities,
   settings = {
