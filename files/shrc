@@ -129,9 +129,10 @@ function gitif() {
     git init
     git add .
     git commit -m "init"
+    git branch -M $MAINBRANCH
     git remote add origin $1
     git remote -v
-    git push -f origin MAINBRANCH
+    git push -f origin $MAINBRANCH
   else 
     echo "Missing git"
   fi
