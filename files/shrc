@@ -153,6 +153,54 @@ function gitorg() {
   fi
 }
 
+# @tags llm
+# @name qgem
+# @info
+# Params: None
+# Info: Run Gemini CLI in homelab docker container
+# Ex: qgem
+# @einfo
+function qgem() {
+  if command_exists docker; then
+    docker run -it --name qgem \
+      -v "$(pwd):/workspace" \
+      -v "$HOME/.gemini:/root/.gemini" \
+      git.local/quaren/gemini-cli:latest
+  else 
+    echo "Missing docker"
+  fi
+}
+
+# @tags mycheat
+# @name mycheatsync
+# @info
+# Params: None
+# Info: Sync down changes for dot files
+# Ex: mycheatsync
+# @einfo
+function mycheatsync() {
+  if command_exists git; then
+    cd $HOME/.dot && git pull
+  else 
+    echo "Missing git"
+  fi
+
+}
+# @tags mycheat
+# @name mycheatpush
+# @info
+# Params: commit_msg
+# Info: Push changes to dot files
+# Ex: mycheatpush
+# @einfo
+function mycheatpush() {
+  COMMIT=$1
+  if command_exists git; then
+    cd $HOME/.dot && git add . && git commit -m $COMMIT && git push
+  else 
+    echo "Missing git"
+  fi
+}
 
 function mycheat() {
     local filename="$HOME/.dot/files/shrc"
