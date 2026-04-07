@@ -171,6 +171,25 @@ function qgem() {
   fi
 }
 
+# @tags llm
+# @name qopen 
+# @info
+# Params: None
+# Info: Run Opencode CLI in homelab docker container
+# Ex: qopen
+# @einfo
+function qopen() {
+  if command_exists docker; then
+    docker run --rm -it --name "qopen-$RANDOM" \
+      -v "$(pwd):/workspace" \
+      -v "$HOME/.config/opencode:/root/.config/opencode" \
+      -v "$HOME/.local/share/opencode:/root/.local/share/opencode" \
+      git.local/quaren/opencode:latest
+  else 
+    echo "Missing docker"
+  fi
+}
+
 # @tags mycheat
 # @name mycheatsync
 # @info
