@@ -162,7 +162,7 @@ function gitorg() {
 # @einfo
 function qgem() {
   if command_exists docker; then
-    docker run -it --name qgem \
+    docker run --rm -it --name "qgem-$RANDOM" \
       -v "$(pwd):/workspace" \
       -v "$HOME/.gemini:/root/.gemini" \
       git.local/quaren/gemini-cli:latest
