@@ -165,7 +165,7 @@ function qgem() {
     docker run --rm -it --name "qgem-$RANDOM" \
       -v "$(pwd):/workspace" \
       -v "$HOME/.gemini:/root/.gemini" \
-      git.local/quaren/gemini-cli:latest
+      git.local:80/quaren/gemini-cli:latest
   else 
     echo "Missing docker"
   fi

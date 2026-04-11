@@ -19,10 +19,8 @@ end
 
 local capabilities = cmpslp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local lsp_ok, lsp = pcall(require, 'lspconfig')
-if not lsp_ok then
-  return
-end
+-- Set global capabilities for all LSP servers
+vim.lsp.config('*', { capabilities = capabilities })
 
 local lua_ls_config = {
   settings = {
@@ -40,10 +38,7 @@ local lua_ls_config = {
   },
 }
 
-vim.keymap.set("n", "K", ":lua vim.lsp.buf.hover()<CR>")
-
 local gopls_config = {
-  capabilities = capabilities,
   settings = {
     gopls = {
       experimentalPostfixCompletions = true,
@@ -59,24 +54,33 @@ local gopls_config = {
   },
 }
 
+vim.keymap.set("n", "K", ":lua vim.lsp.buf.hover()<CR>")
+
 local servers = {
-  { 'lua_ls' },
+  { 'lua_ls', settings = lua_ls_config.settings },
   { 'clangd' },
   { 'ts_ls' },
+  -- Added gopls as it was defined but missing from the loop
+  { 'gopls', settings = gopls_config.settings, init_options = gopls_config.init_options },
 }
 
-for _, server in pairs(servers) do
-  local config = lsp[server[1]]
-  if (vim.fn.executable(config.document_config.default_config.cmd[1])) == 1 then
-    local setup_config = {
-      capabilities = capabilities
-    }
+for _, server in ipairs(servers) do
+  local name = server[1]
+  -- Get the default configuration provided by nvim-lspconfig
+  local config = vim.lsp.config[name]
+  
+  -- Check if the server executable exists
+  if config and config.cmd and vim.fn.executable(config.cmd[1]) == 1 then
+    local setup_config = {}
     for k, v in pairs(server) do
       if type(k) ~= 'number' then
         setup_config[k] = v
       end
     end
-    config.setup(setup_config)
+    
+    -- Apply the configuration
+    vim.lsp.config(name, setup_config)
+    -- Enable the server
+    vim.lsp.enable(name)
   end
 end
-
